@@ -13,10 +13,15 @@ A tool for scheduling posts on Instagram, implemented in Python using the Seleni
 ## Roadmap
 
 [X] Skeleton of the project
+
 [ ] Unit, integration, and functional tests
+
 [ ] CLI application 
+
 [ ] Integration with the official Instagram API
+
 [ ] GUI application
+
 [ ] Web application (maybe, but it is probably another project)
 
 <!-- ## Requirements and Tested Platforms
@@ -43,10 +48,10 @@ Anyone manually testing the code and reporting bugs or suggestions for enhanceme
 
 Patches/fixes are accepted in form of pull requests (PRs). Make sure the issue the pull request addresses is open in the Issue Tracker.
 
-Submitted pull request is deemed to have agreed to publish under <a href="https://github.com/Ssoppa/InstaBot/COPYING">GPL v3</a>.
+Submitted pull request is deemed to have agreed to publish under <a href="https://github.com/Ssoppa/InstaBot/blob/main/COPYING">GPL v3</a>.
 
 ## License
 
 GNU General Public License v3.0 or later
 
-Check <a href="https://github.com/Ssoppa/InstaBot/COPYING">COPYING</a> to see the full text.
+Check <a href="https://github.com/Ssoppa/InstaBot/blob/main/COPYING">COPYING</a> to see the full text.
