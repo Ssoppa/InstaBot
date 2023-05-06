@@ -17,10 +17,25 @@ class Scheduler:
 
         self.connection.commit()
 
-    def schedule_post(self, post : Post):
+    def schedule_post(self, post : Post) -> Post:
         self.cursor.execute("INSERT INTO posts VALUES (?, ?, ?)", (post.filepath, post.description, post.scheduled_time))
 
         self.connection.commit()
+
+    def get_all_posts(self) -> list:
+        pass
+
+    def get_single_post(self, id : int) -> Post:
+        pass
+
+    def get_quantity_of_posts(self) -> int:
+        pass
+
+    def update_post(self) -> Post:
+        pass
+
+    def delete_post(self, id : int) -> Post:
+        pass
 
 
 class Poster:
