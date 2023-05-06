@@ -14,7 +14,7 @@ A tool for scheduling posts on Instagram, implemented in Python using the Seleni
 
 [X] Skeleton of the project
 
-[ ] Unit, integration, and functional tests
+[X] Unit, integration, and functional tests
 
 [ ] CLI application 
 
