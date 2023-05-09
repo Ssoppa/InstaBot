@@ -1,10 +1,12 @@
-from instabot.instabot import Scheduler, Post
+from instabot.post import Post
+from instabot.scheduler import Scheduler
+
 from datetime import datetime, timedelta
 
 def test_schedule_a_valid_post():
     # Given.
     scheduler = Scheduler(":memory:")
-    post = Post("../img/valid_test_img.png", "This is a test description.", (datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y, %H:%M:%S"))
+    post = Post(filepath="../img/valid_test_img.png", description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y, %H:%M:%S"))
 
     # When.
     result = scheduler.schedule_post(post)

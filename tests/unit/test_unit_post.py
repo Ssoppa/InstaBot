@@ -1,6 +1,6 @@
 import pytest
 
-from instabot.instabot import Post
+from instabot.post import Post
 from datetime import datetime, timedelta
 
 def test_unit_create_a_valid_post():
