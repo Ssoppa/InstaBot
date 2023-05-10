@@ -9,6 +9,7 @@
 ## Overview
 
 A tool for scheduling posts on Instagram, implemented in Python using the Selenium module.
+This is just a personal project to practice TDD and Selenium, as well as learn about GUI applications in Python.
 
 ## Roadmap
 
@@ -18,7 +19,7 @@ A tool for scheduling posts on Instagram, implemented in Python using the Seleni
 
 [ ] CLI application 
 
-[ ] Integration with the official Instagram API
+[ ] Integration with the official Instagram API (maybe, just to see how it works)
 
 [ ] GUI application
 

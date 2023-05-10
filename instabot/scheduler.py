@@ -1,6 +1,6 @@
 import sqlite3
 
-from post import Post
+from instabot.post import Post
 
 class Scheduler:
     def __init__(self, db_path : str) -> None:

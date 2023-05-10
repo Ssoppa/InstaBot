@@ -1,6 +1,7 @@
 import pytest
 
-from instabot.instabot import Scheduler, Post
+from instabot.post import Post
+from instabot.scheduler import Scheduler
 from datetime import datetime, timedelta
 
 def test_schedule_a_valid_post():
