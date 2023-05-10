@@ -25,16 +25,49 @@ class Scheduler:
         return new_post
 
     def get_all_posts(self) -> list:
-        pass
+        self.cursor.execute("SELECT * FROM posts")
+        all_posts = self.cursor.fetchall()
+        
+        return all_posts
 
     def get_single_post(self, id : int) -> Post:
-        pass
+        self.cursor.execute("SELECT * FROM posts WHERE pk_postid = ?", (id,))
+        result = self.cursor.fetchone()
+
+        if result == None:
+            raise ValueError("A post with the provided id was not found!")
+        
+        single_post = Post(id=result[0], filepath=result[1], description=result[2], scheduled_time=result[3])
+        
+        return single_post
 
     def get_quantity_of_posts(self) -> int:
-        pass
+        self.cursor.execute("SELECT COUNT(*) FROM posts")
+        count = self.cursor.fetchone()[0]
+        
+        return count
 
-    def update_post(self) -> Post:
-        pass
+    def update_post(self, updated_post : Post) -> Post:
+        self.cursor.execute("UPDATE posts SET filepath = ?, description = ?, scheduled_time = ? WHERE pk_postid = ?"
+                            " RETURNING *", 
+                            (updated_post.filepath, updated_post.description, updated_post.scheduled_time, updated_post.id))
+        row = self.cursor.fetchone()
+        
+        self.connection.commit()
+
+        new_post = Post(id=row[0], filepath=row[1], description=row[2], scheduled_time=row[3])
+
+        return new_post
 
     def delete_post(self, id : int) -> Post:
-        pass
+        self.cursor.execute("DELETE FROM posts WHERE pk_postid = ? RETURNING *", (id,))
+        result = self.cursor.fetchone()
+        
+        self.connection.commit()
+
+        if result == None:
+            raise ValueError("A post with the provided id was not found!")
+
+        deleted_post = Post(id=result[0], filepath=result[1], description=result[2], scheduled_time=result[3])
+
+        return deleted_post

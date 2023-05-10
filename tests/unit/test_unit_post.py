@@ -1,11 +1,12 @@
 import pytest
+import os
 
 from instabot.post import Post
 from datetime import datetime, timedelta
 
 def test_unit_create_a_valid_post():
     # Given.
-    filepath = "/home/matheus/Documentos/InstaBot/tests/img/valid_test_img.png"
+    filepath = os.getcwd() + '/tests/img/valid_test_img.png'
     description = "This is a test description."
     scheduled_time = (datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S")
 
@@ -19,7 +20,7 @@ def test_unit_create_a_valid_post():
 
 def test_unit_create_a_post_with_a_invalid_file_format():
     # Given.
-    filepath = "/home/matheus/Documentos/InstaBot/tests/img/invalid_test_img.pdf"
+    filepath = os.getcwd() + '/tests/img/invalid_test_img.pdf'
     description = "This is a test description."
     scheduled_time = (datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y, %H:%M:%S")
 
@@ -49,7 +50,7 @@ def test_unit_create_a_post_with_invalid_file_type():
 
 def test_unit_create_a_post_with_invalid_description_type():
     # Given.
-    filepath = "/home/matheus/Documentos/InstaBot/tests/img/valid_test_img.png"
+    filepath = os.getcwd() + '/tests/img/valid_test_img.png'
     description = 123
     scheduled_time = (datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y, %H:%M:%S")
 
@@ -59,7 +60,7 @@ def test_unit_create_a_post_with_invalid_description_type():
 
 def test_unit_create_a_post_with_invalid_scheduled_time_type():
     # Given.
-    filepath = "/home/matheus/Documentos/InstaBot/tests/img/valid_test_img.png"
+    filepath = os.getcwd() + '/tests/img/valid_test_img.png'
     description = "This is a test description."
     scheduled_time = 123
 
@@ -69,7 +70,7 @@ def test_unit_create_a_post_with_invalid_scheduled_time_type():
 
 def test_unit_create_a_post_with_a_past_date():
     # Given.
-    filepath = "/home/matheus/Documentos/InstaBot/tests/img/valid_test_img.png"
+    filepath = os.getcwd() + '/tests/img/valid_test_img.png'
     description = "This is a test description."
     scheduled_time = (datetime.now() - timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S")
 
