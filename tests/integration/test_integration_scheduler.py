@@ -3,6 +3,7 @@ import os
 
 from instabot.post import Post
 from instabot.scheduler import Scheduler
+
 from datetime import datetime, timedelta
 
 def test_integration_schedule_a_valid_post():
@@ -101,7 +102,6 @@ def test_integration_update_file_single_scheduled_post():
 
     # Then.
     assert type(result) == Post
-
 
 def test_integration_delete_existing_scheduled_post():
     # Given.

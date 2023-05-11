@@ -26,8 +26,13 @@ class Scheduler:
 
     def get_all_posts(self) -> list:
         self.cursor.execute("SELECT * FROM posts")
-        all_posts = self.cursor.fetchall()
-        
+        result = self.cursor.fetchall()
+        all_posts = []
+
+        for post in result:
+            single_post = Post(id=post[0], filepath=post[1], description=post[2], scheduled_time=post[3])
+            all_posts.append(single_post)
+
         return all_posts
 
     def get_single_post(self, id : int) -> Post:
