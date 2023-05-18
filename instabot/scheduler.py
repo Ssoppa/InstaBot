@@ -7,7 +7,7 @@ class Scheduler:
         self.connection = sqlite3.connect(db_path)
         self.cursor = self.connection.cursor()
 
-        command = "CREATE TABLE posts (pk_postid integer primary key autoincrement, filepath TEXT, description TEXT, scheduled_time TEXT)"
+        command = "CREATE TABLE posts (pk_postid integer primary key autoincrement, filepath TEXT, description TEXT, scheduled_time timestamp)"
         self.cursor.execute(command)
 
         self.connection.commit()

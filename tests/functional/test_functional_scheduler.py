@@ -8,8 +8,8 @@ from datetime import datetime, timedelta
 def test_functional_schedule_a_valid_post():
     # Given.
     scheduler = Scheduler(":memory:")
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S"))
-
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=datetime.now() + timedelta(days=1))
+    
     # When.
     result = scheduler.schedule_post(post)
     scheduler.connection.close()
@@ -25,7 +25,7 @@ def test_functional_view_all_scheduled_posts():
     number_of_posts = 10
     test_posts = []
     for index in range(number_of_posts):
-        post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: {index+1}.", scheduled_time=(datetime.now() + timedelta(days=index+1)).strftime("%d/%m/%Y %H:%M:%S"))
+        post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: {index+1}.", scheduled_time=datetime.now() + timedelta(days=index+1))
         test_posts.append(post)
         scheduler.schedule_post(post)
 
@@ -42,7 +42,7 @@ def test_functional_view_all_scheduled_posts():
 def test_functional_view_single_scheduled_post():
     # Given.
     scheduler = Scheduler(":memory:")
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S"))
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=datetime.now() + timedelta(days=1))
     scheduler.schedule_post(post)
 
     # When.
@@ -57,7 +57,7 @@ def test_functional_view_single_scheduled_post():
 def test_functional_update_description_single_scheduled_post():
     # Given.
     scheduler = Scheduler(":memory:")
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S"))
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=datetime.now() + timedelta(days=1))
     scheduler.schedule_post(post)
 
     # When.
@@ -74,12 +74,12 @@ def test_functional_update_description_single_scheduled_post():
 def test_functional_update_date_single_scheduled_post():
     # Given.
     scheduler = Scheduler(":memory:")
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S"))
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=datetime.now() + timedelta(days=1))
     scheduler.schedule_post(post)
 
     # When.
     new_post = scheduler.get_single_post(1)
-    new_post.scheduled_time = (datetime.now() + timedelta(days=2)).strftime("%d/%m/%Y %H:%M:%S")
+    new_post.scheduled_time = datetime.now() + timedelta(days=2)
     result = scheduler.update_post(new_post)
     scheduler.connection.close()
 
@@ -91,7 +91,7 @@ def test_functional_update_date_single_scheduled_post():
 def test_functional_update_file_single_scheduled_post():
     # Given.
     scheduler = Scheduler(":memory:")
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S"))
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=datetime.now() + timedelta(days=1))
     scheduler.schedule_post(post)
 
     # When.
@@ -108,7 +108,7 @@ def test_functional_update_file_single_scheduled_post():
 def test_functional_delete_existing_scheduled_post():
     # Given.
     scheduler = Scheduler(":memory:")
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S"))
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=datetime.now() + timedelta(days=1))
     scheduler.schedule_post(post)
 
     # When.

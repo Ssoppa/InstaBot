@@ -5,6 +5,7 @@ from datetime import datetime
 
 class Post:
     def __init__(self, *args, **kwargs) -> None:
+        self.first = True
         self.id = kwargs.get('id', None)
         self.filepath = kwargs.get('filepath', None)
         self.description = kwargs.get('description', None)
@@ -13,6 +14,9 @@ class Post:
         self._validate_data()
 
     def _validate_data(self) -> None:
+        if not self.first:
+            return
+
         # Check the file
         if type(self.filepath) is not str:
             raise TypeError("filepath argument must be a string!")
@@ -35,12 +39,14 @@ class Post:
             raise TypeError("description argument must be a string!")
 
         # Check the scheduled date
-        if type(self.scheduled_time) is not str:
-            raise TypeError("scheduled_time argument must be a string!")
+        if type(self.scheduled_time) is not datetime:
+            try:
+                self.scheduled_time = datetime.strptime(self.scheduled_time, '%Y-%m-%d %H:%M:%S.%f')
+            except:
+                raise TypeError("scheduled_time argument must be a datetime.datetime!")
         try:
-            test_time = datetime.strptime(self.scheduled_time, '%d/%m/%Y %H:%M:%S')
-
-            if test_time < datetime.now():
+            if self.scheduled_time < datetime.now():
                 raise ValueError("scheduled_time argument must be in at least in the present.")
+            self.first = False
         except:
-            raise ValueError("scheduled_time argument must be in the following format: %d/%m/%Y %H:%M:%S")
+            raise ValueError("scheduled_time argument must be in the ISO format.")

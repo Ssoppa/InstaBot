@@ -3,8 +3,6 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 from dotenv import load_dotenv
@@ -17,6 +15,7 @@ class Poster:
         self._username = kwargs.get('username', None)
         self._account_name = kwargs.get('account_name', None)
         self._password = kwargs.get('password', None)
+        self._logged = False
 
         if self._username is None:
             raise ValueError("username argument is required!")
@@ -72,6 +71,8 @@ class Poster:
                 sleep(2)
             except:
                 pass
+
+            self._logged = True
         except Exception as e:
             raise Exception(e)
 
@@ -85,17 +86,25 @@ class Poster:
         self._driver.find_element(By.XPATH, '//button[contains(text(), "Delete")]').click()
 
     def post(self, post : Post) -> str:
-        self._login()
+        if not self._logged:
+            self._login()
+        else:
+            self._driver.get("https://www.instagram.com/")
+            sleep(2)
 
         self._driver.find_element(By.XPATH, "//a[contains(@href, '#')]").click()
-        sleep(5)
-        self._driver.find_element(By.XPATH, "//span[contains(text(), 'Post')]").click()
-        sleep(5)
+        sleep(2)
+        self._driver.find_element(By.XPATH, "//div[@class='x1exxlbk']/div").click()
+        # self._driver.find_element(By.XPATH, "//span[contains(text(), 'Post')]").click()
+        # post_element = self._driver.find_element(By.XPATH, "//span[contains(text(), 'Post')]").find_element(By.XPATH, "..").find_element(By.XPATH, "..")
+        # self._driver.execute_script("arguments[0].scrollIntoView();", post_element)
+        # self._driver.execute_script("arguments[0].click();", post_element)
+        sleep(2)
         self._driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(post.filepath)
-        sleep(5)
+        sleep(10)
         try:
             self._driver.find_element(By.XPATH, '//span[contains(text(), "Expand")]').click()
-            sleep(1)
+            sleep(2)
         except:
             pass
         self._driver.find_element(By.XPATH, "//button[contains(text(), 'Next')]").click()

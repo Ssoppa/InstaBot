@@ -7,6 +7,7 @@ from time import sleep
 from instabot.post import Post
 from instabot.poster import Poster
 
+
 def test_functional_login():
     # Given.
     poster = Poster(username=os.getenv('TEST_INSTAGRAM_USERNAME'), password=os.getenv('TEST_INSTAGRAM_PASSWORD'), account_name=os.getenv('TEST_INSTAGRAM_ACCOUNT_NAME'))
@@ -22,7 +23,7 @@ def test_functional_login():
 def test_functional_delete_post():
     # Given.
     poster = Poster(username=os.getenv('TEST_INSTAGRAM_USERNAME'), password=os.getenv('TEST_INSTAGRAM_PASSWORD'), account_name=os.getenv('TEST_INSTAGRAM_ACCOUNT_NAME'))
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S"))
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=datetime.now() + timedelta(days=1))
     url = poster.post(post)
     default_message = "Sorry, this page isn't available."
 
@@ -41,7 +42,7 @@ def test_functional_delete_post():
 def test_functional_post_file():
     # Given.
     poster = Poster(username=os.getenv('TEST_INSTAGRAM_USERNAME'), password=os.getenv('TEST_INSTAGRAM_PASSWORD'), account_name=os.getenv('TEST_INSTAGRAM_ACCOUNT_NAME'))
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=(datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y %H:%M:%S"))
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description="This is a test description.", scheduled_time=datetime.now() + timedelta(days=1))
     
     # When.
     url = poster.post(post)
