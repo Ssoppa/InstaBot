@@ -28,11 +28,11 @@ def test_integration_post_multiple_times():
     post_description2 = poster._driver.find_element(By.XPATH, f"//h1[contains(text(), '{post1.description}')]").text
     post_image_information2 = poster._driver.find_element(By.XPATH, f"//img[contains(@alt, '{datetime.now().strftime('%b %d, %Y')}')]").get_attribute("alt")
 
+    poster._delete_post(url1)
+    poster._delete_post(url2)
+    poster._driver.quit()
+
     assert post_description1 == post1.description
     assert post_image_information1 == f"Photo by {poster._account_name} on {datetime.now().strftime('%b %d, %Y')}."
     assert post_description2 == post2.description
     assert post_image_information2 == f"Photo by {poster._account_name} on {datetime.now().strftime('%b %d, %Y')}."
-
-    poster._delete_post(url1)
-    poster._delete_post(url2)
-    poster._driver.quit()

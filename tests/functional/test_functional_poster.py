@@ -54,8 +54,8 @@ def test_functional_post_file():
     formatted_date = datetime.now().strftime("%b %d, %Y")
     post_image_information = poster._driver.find_element(By.XPATH, f"//img[contains(@alt, '{formatted_date}')]").get_attribute("alt")
     
-    assert post_description == post.description
-    assert post_image_information == f"Photo by {poster._account_name} on {formatted_date}."
-    
     poster._delete_post(url)
     poster._driver.quit()
+
+    assert post_description == post.description
+    assert post_image_information == f"Photo by {poster._account_name} on {formatted_date}."

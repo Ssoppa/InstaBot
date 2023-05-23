@@ -2,12 +2,13 @@ import sqlite3
 
 from instabot.post import Post
 
+
 class Scheduler:
     def __init__(self, db_path : str) -> None:
         self.connection = sqlite3.connect(db_path)
         self.cursor = self.connection.cursor()
 
-        command = "CREATE TABLE posts (pk_postid integer primary key autoincrement, filepath TEXT, description TEXT, scheduled_time timestamp)"
+        command = "CREATE TABLE IF NOT EXISTS posts (pk_postid integer primary key autoincrement, filepath TEXT, description TEXT, scheduled_time timestamp)"
         self.cursor.execute(command)
 
         self.connection.commit()
@@ -26,6 +27,17 @@ class Scheduler:
 
     def get_all_posts(self) -> list:
         self.cursor.execute("SELECT * FROM posts")
+        result = self.cursor.fetchall()
+        all_posts = []
+
+        for post in result:
+            single_post = Post(id=post[0], filepath=post[1], description=post[2], scheduled_time=post[3])
+            all_posts.append(single_post)
+
+        return all_posts
+    
+    def get_all_posts_to_publish(self) -> list:
+        self.cursor.execute("SELECT * FROM posts WHERE scheduled_time < now()")
         result = self.cursor.fetchall()
         all_posts = []
 

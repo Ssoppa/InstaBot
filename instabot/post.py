@@ -3,6 +3,7 @@ import mimetypes
 
 from datetime import datetime
 
+
 class Post:
     def __init__(self, *args, **kwargs) -> None:
         self.first = True

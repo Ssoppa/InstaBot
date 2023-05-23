@@ -5,6 +5,7 @@ from instabot.scheduler import Scheduler
 
 from datetime import datetime, timedelta
 
+
 def test_functional_schedule_a_valid_post():
     # Given.
     scheduler = Scheduler(":memory:")
