@@ -6,16 +6,16 @@ from datetime import datetime
 
 class Post:
     def __init__(self, *args, **kwargs) -> None:
-        self.first = True
         self.id = kwargs.get('id', None)
         self.filepath = kwargs.get('filepath', None)
         self.description = kwargs.get('description', None)
         self.scheduled_time = kwargs.get('scheduled_time', None)
+        self.already_scheduled = kwargs.get('already_scheduled', False)
 
         self._validate_data()
 
     def _validate_data(self) -> None:
-        if not self.first:
+        if self.already_scheduled:
             return
 
         # Check the file
@@ -45,9 +45,6 @@ class Post:
                 self.scheduled_time = datetime.strptime(self.scheduled_time, '%Y-%m-%d %H:%M:%S.%f')
             except:
                 raise TypeError("scheduled_time argument must be a datetime.datetime!")
-        try:
-            if self.scheduled_time < datetime.now():
-                raise ValueError("scheduled_time argument must be in at least in the present.")
-            self.first = False
-        except:
-            raise ValueError("scheduled_time argument must be in the ISO format.")
+        if self.scheduled_time < datetime.now():
+            raise ValueError("scheduled_time argument must be in at least in the present.")
+        self.already_scheduled = True

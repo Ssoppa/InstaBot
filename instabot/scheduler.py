@@ -31,18 +31,18 @@ class Scheduler:
         all_posts = []
 
         for post in result:
-            single_post = Post(id=post[0], filepath=post[1], description=post[2], scheduled_time=post[3])
+            single_post = Post(id=post[0], filepath=post[1], description=post[2], scheduled_time=post[3], already_scheduled = True)
             all_posts.append(single_post)
 
         return all_posts
     
     def get_all_posts_to_publish(self) -> list:
-        self.cursor.execute("SELECT * FROM posts WHERE scheduled_time < now()")
+        self.cursor.execute("SELECT * FROM posts WHERE scheduled_time < DATETIME('now')")
         result = self.cursor.fetchall()
         all_posts = []
 
         for post in result:
-            single_post = Post(id=post[0], filepath=post[1], description=post[2], scheduled_time=post[3])
+            single_post = Post(id=post[0], filepath=post[1], description=post[2], scheduled_time=post[3], already_scheduled = True)
             all_posts.append(single_post)
 
         return all_posts
@@ -72,7 +72,7 @@ class Scheduler:
         
         self.connection.commit()
 
-        new_post = Post(id=row[0], filepath=row[1], description=row[2], scheduled_time=row[3])
+        new_post = Post(id=row[0], filepath=row[1], description=row[2], scheduled_time=row[3], already_scheduled = True)
 
         return new_post
 
@@ -85,6 +85,6 @@ class Scheduler:
         if result == None:
             raise ValueError("A post with the provided id was not found!")
 
-        deleted_post = Post(id=result[0], filepath=result[1], description=result[2], scheduled_time=result[3])
+        deleted_post = Post(id=result[0], filepath=result[1], description=result[2], scheduled_time=result[3], already_scheduled = True)
 
         return deleted_post

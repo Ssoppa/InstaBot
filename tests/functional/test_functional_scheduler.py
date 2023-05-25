@@ -38,7 +38,7 @@ def test_functional_view_all_scheduled_posts():
     for index, post in enumerate(all_posts):
         assert post.filepath == test_posts[index].filepath
         assert post.description == test_posts[index].description
-        assert post.scheduled_time == test_posts[index].scheduled_time
+        assert post.scheduled_time == str(test_posts[index].scheduled_time)
 
 def test_functional_view_single_scheduled_post():
     # Given.
@@ -70,7 +70,7 @@ def test_functional_update_description_single_scheduled_post():
     # Then.
     assert result.filepath == new_post.filepath
     assert result.description == new_post.description
-    assert result.scheduled_time == new_post.scheduled_time
+    assert result.scheduled_time == str(new_post.scheduled_time)
 
 def test_functional_update_date_single_scheduled_post():
     # Given.
@@ -87,7 +87,7 @@ def test_functional_update_date_single_scheduled_post():
     # Then.
     assert result.filepath == new_post.filepath
     assert result.description == new_post.description
-    assert result.scheduled_time == new_post.scheduled_time
+    assert result.scheduled_time == str(new_post.scheduled_time)
 
 def test_functional_update_file_single_scheduled_post():
     # Given.
@@ -104,7 +104,7 @@ def test_functional_update_file_single_scheduled_post():
     # Then.
     assert result.filepath == new_post.filepath
     assert result.description == new_post.description
-    assert result.scheduled_time == new_post.scheduled_time
+    assert result.scheduled_time == str(new_post.scheduled_time)
 
 def test_functional_delete_existing_scheduled_post():
     # Given.
@@ -119,4 +119,4 @@ def test_functional_delete_existing_scheduled_post():
     # Then.
     assert result.filepath == post.filepath
     assert result.description == post.description
-    assert result.scheduled_time == post.scheduled_time
+    assert result.scheduled_time == str(post.scheduled_time)

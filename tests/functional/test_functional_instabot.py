@@ -1,21 +1,21 @@
 import os
 
 from instabot.instabot import Instabot
-from instabot.scheduler import Scheduler
 from instabot.post import Post
-from instabot.poster import Poster
 
 from datetime import datetime, timedelta
+from time import sleep
 
 
 def test_functional_instabot_bot_with_one_post():
     # Given.
-    scheduler = Scheduler(":memory:")
-    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: 1.", scheduled_time=datetime.now())
-    scheduler.schedule_post(post)
+    instabot = Instabot(":memory:")
+    post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: 1.", scheduled_time=datetime.now() + timedelta(seconds=1))
+    instabot._scheduler.schedule_post(post)
+    sleep(2)
 
     # When.
-    instabot = Instabot(":memory:")
+    instabot._check_and_post()
 
     for url in instabot._lists_of_url:
         instabot._poster._delete_post(url)
@@ -26,13 +26,14 @@ def test_functional_instabot_bot_with_one_post():
 
 def test_functional_instabot_bot_with_two_posts():
     # Given.
-    scheduler = Scheduler(":memory:")
+    instabot = Instabot(":memory:")
     for index in range(2):
-        post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: {index + 1}.", scheduled_time=datetime.now())
-        scheduler.schedule_post(post)
+        post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: {index + 1}.", scheduled_time=datetime.now() + timedelta(seconds=1))
+        instabot._scheduler.schedule_post(post)
+    sleep(2)
 
     # When.
-    instabot = Instabot(":memory:")
+    instabot._check_and_post()
 
     for url in instabot._lists_of_url:
         instabot._poster._delete_post(url)
@@ -43,15 +44,16 @@ def test_functional_instabot_bot_with_two_posts():
 
 def test_functional_instabot_bot_with_multiple_posts_and_one_remaining():
     # Given.
-    scheduler = Scheduler(":memory:")
+    instabot = Instabot(":memory:")
     for index in range(2):
-        post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: {index + 1}.", scheduled_time=datetime.now())
-        scheduler.schedule_post(post)
+        post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: {index + 1}.", scheduled_time=datetime.now() + timedelta(seconds=1))
+        instabot._scheduler.schedule_post(post)
     post = Post(filepath=os.getcwd() + '/tests/img/valid_test_img.png', description=f"This is a test description number: {index + 1}.", scheduled_time=datetime.now() + timedelta(days=1))
-    scheduler.schedule_post(post)
+    instabot._scheduler.schedule_post(post)
+    sleep(2)
 
     # When.
-    instabot = Instabot(":memory:")
+    instabot._check_and_post()
 
     for url in instabot._lists_of_url:
         instabot._poster._delete_post(url)
