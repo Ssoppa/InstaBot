@@ -48,3 +48,6 @@ class Post:
         if self.scheduled_time < datetime.now():
             raise ValueError("scheduled_time argument must be in at least in the present.")
         self.already_scheduled = True
+
+    def __str__(self) -> str:
+        return f"ID: {self.id}. Filepath: {self.filepath}. Description: {self.description}. Scheduled time: {self.scheduled_time}"
