@@ -42,7 +42,7 @@ class Post:
         # Check the scheduled date
         if type(self.scheduled_time) is not datetime:
             try:
-                self.scheduled_time = datetime.strptime(self.scheduled_time, '%Y-%m-%d %H:%M:%S.%f')
+                self.scheduled_time = datetime.strptime(self.scheduled_time, '%Y-%m-%d %H:%M:%S')
             except:
                 raise TypeError("scheduled_time argument must be a datetime.datetime!")
         if self.scheduled_time < datetime.now():

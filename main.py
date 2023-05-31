@@ -3,20 +3,25 @@ import os
 from instabot.scheduler import Scheduler
 from instabot.post import Post
 
+from datetime import datetime
+
 class CLI:
     def __init__(self) -> None:
         self.database_configuration()
 
     def database_configuration(self):
         db_path = input("Enter the database path: ")
+        print(db_path)
         if not os.path.isfile(db_path):
             try:
                 open(db_path, "x")
-            except:
+            except Exception as e:
+                print(e)
                 print("Invalid path! Try again with a valid path.")
                 exit()
 
         self.scheduler = Scheduler(db_path=db_path)
+
         self.print_main_menu()
 
     def print_main_menu(self):
@@ -37,9 +42,10 @@ class CLI:
     def create_post(self):
         filepath = input('Filepath: ')
         description = input('Description: ')
-        scheduled_time = input('Time to post (%Y-%m-%d %H:%M:%S): ')
+        scheduled_time = input('Time to post (YYYY-MM-DD h:m:s): ')
 
         try:
+            scheduled_time = datetime.strptime(scheduled_time, '%Y-%m-%d %H:%M:%S')
             post = Post(filepath=filepath, description=description, scheduled_time=scheduled_time)
             self.scheduler.schedule_post(post)
             print("Post scheduled!")
@@ -58,10 +64,15 @@ class CLI:
         self.print_main_menu()
 
     def update_post(self):
-        post_id = input('Post id: ')
+        post_id = input('Post id (-1 to return to main menu): ')
 
         try:
             post_id = int(post_id)
+
+            if post_id == -1:
+                self.print_main_menu()
+                return
+            
             selected_post = self.scheduler.get_single_post(post_id)
             print(selected_post)
         except Exception as e:
@@ -85,10 +96,15 @@ class CLI:
         self.print_main_menu()
 
     def delete_post(self):
-        post_id = input('Post id: ')
+        post_id = input('Post id (-1 to return to main menu): ')
 
         try:
             post_id = int(post_id)
+
+            if post_id == -1:
+                self.print_main_menu()
+                return
+            
             deleted_post = self.scheduler.delete_post(post_id)
             print("Deleted the following post: ", deleted_post)
         except Exception as e:

@@ -17,11 +17,11 @@ This is just a personal project to practice TDD and Selenium, as well as learn a
 
 [X] Unit, integration, and functional tests
 
-[ ] CLI application 
-
-[ ] Integration with the official Instagram API (maybe, just to see how it works)
+[X] CLI application 
 
 [ ] GUI application
+
+[ ] Integration with the official Instagram API (maybe, just to see how it works)
 
 [ ] Web application (maybe, but it is probably another project)
 

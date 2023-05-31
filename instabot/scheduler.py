@@ -21,7 +21,7 @@ class Scheduler:
         
         self.connection.commit()
 
-        new_post = Post(id=row[0], filepath=row[1], description=row[2], scheduled_time=row[3])
+        new_post = Post(id=row[0], filepath=row[1], description=row[2], scheduled_time=row[3], already_scheduled=True)
 
         return new_post
 
@@ -54,7 +54,7 @@ class Scheduler:
         if result == None:
             raise ValueError("A post with the provided id was not found!")
         
-        single_post = Post(id=result[0], filepath=result[1], description=result[2], scheduled_time=result[3])
+        single_post = Post(id=result[0], filepath=result[1], description=result[2], scheduled_time=result[3], already_scheduled = True)
         
         return single_post
 

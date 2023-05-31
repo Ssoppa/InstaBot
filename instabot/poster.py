@@ -5,7 +5,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
-from dotenv import load_dotenv
 
 from instabot.post import Post
 
@@ -17,20 +16,24 @@ class Poster:
         self._password = kwargs.get('password', None)
         self._logged = False
 
+        self._validate_data()
+
+        self._config_driver()
+
+    def _validate_data(self) -> None:
         if self._username is None:
             raise ValueError("username argument is required!")
         if self._account_name is None:
             raise ValueError("account_name argument is required!")
         if self._password is None:
             raise ValueError("password argument is required!")
+        
         if type(self._username) is not str:
             raise TypeError("username argument must be a string!")
         if type(self._account_name) is not str:
             raise TypeError("account_name argument must be a string!")
         if type(self._password) is not str:
             raise TypeError("password argument must be a string!")
-
-        self._config_driver()
 
     def _config_driver(self) -> None:
         chrome_options = Options()
@@ -58,7 +61,7 @@ class Poster:
             sleep(2)
             self._driver.find_element(By.XPATH, "//div[contains(text(), 'Log in')]").click()
             self._driver.find_element(By.XPATH, "//input[@name=\"username\"]").send_keys(self._username)
-            self._driver.find_element(By.XPATH, "//input[@name=\"password\"]").send_keys(os.getenv('TEST_INSTAGRAM_PASSWORD'))
+            self._driver.find_element(By.XPATH, "//input[@name=\"password\"]").send_keys(self._password)
             self._driver.find_element(By.XPATH, '//button[@type="submit"]').click()
             sleep(5)
             try:
